@@ -2,6 +2,7 @@ package ru.yandex.practicum.delivery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 public class ParcelBox<T extends Parcel> {
     private List<T> parcels = new ArrayList<>();
@@ -17,7 +18,8 @@ public class ParcelBox<T extends Parcel> {
             parcelBoxWeight += newParcel.getWeight();
         }
         if ((parcelBoxWeight + parcel.getWeight()) > maxWeight) {
-            System.out.println("Посылка <<" + parcel.getDescription() + ">> не может быть добавлена в коробку. Превышен предельный вес");
+            System.out.println("Посылка <<" + parcel.getDescription() + ">> не может быть добавлена в коробку. " +
+                    "Превышен предельный вес");
             return false;
         } else {
             parcels.add(parcel);
@@ -26,6 +28,6 @@ public class ParcelBox<T extends Parcel> {
     }
 
     public List<T> getAllParcels() {
-        return parcels;
+        return Collections.unmodifiableList(parcels);
     }
 }

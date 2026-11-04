@@ -73,22 +73,25 @@ public class DeliveryApp {
         switch (choice) {
             case 1:
                 StandardParcel standardParcel = new StandardParcel(description, deliveryAddress, weight, sendDay);
-                allParcels.add(standardParcel);
-                standardParcelBox.addParcel(standardParcel);
+                if (standardParcelBox.addParcel(standardParcel)) {
+                    allParcels.add(standardParcel);
+                }
                 break;
             case 2:
                 FragileParcel fragileParcel = new FragileParcel(description, deliveryAddress, weight, sendDay);
-                allParcels.add(fragileParcel);
-                fragileParcelBox.addParcel(fragileParcel);
-                trackableParcels.add(fragileParcel);
+                if (fragileParcelBox.addParcel(fragileParcel)) {
+                    allParcels.add(fragileParcel);
+                    trackableParcels.add(fragileParcel);
+                }
                 break;
             case 3:
                 System.out.println("Укажите срок хранения продукта в днях:");
                 int timeToLive = Integer.parseInt(scanner.nextLine());
                 PerishableParcel perishableParcel = new PerishableParcel(description, deliveryAddress,
                         weight, sendDay, timeToLive);
-                allParcels.add(perishableParcel);
-                perishableParcelBox.addParcel(perishableParcel);
+                if (perishableParcelBox.addParcel(perishableParcel)) {
+                    allParcels.add(perishableParcel);
+                }
                 break;
             default:
                 System.out.println("Неверный выбор");
